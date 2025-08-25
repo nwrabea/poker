@@ -119,3 +119,25 @@ function makeDecision(playerAction) {
 }
 
 window.onload = initializeGame;
+
+
+function resetStats() {
+    if (confirm('Are you sure you want to reset all your results?')) {
+        currentScore = 0;
+        currentStreak = 0;
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        
+        // Clear localStorage
+        localStorage.removeItem('pokerScore');
+        localStorage.removeItem('pokerStreak');
+        localStorage.removeItem('pokerCorrect');
+        localStorage.removeItem('pokerWrong');
+        
+        // Update display
+        updateDisplay();
+        
+        // Optional: Show confirmation
+        alert('Results have been reset!');
+    }
+}
