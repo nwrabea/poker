@@ -4,6 +4,7 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentHand, currentPosition, currentScenario;
 let canAnswer = true;
+let canReset = true;
 
 function initializeGame() {
     loadStats();
@@ -32,6 +33,36 @@ function updateDisplay() {
     document.getElementById('wrong').textContent = wrongAnswers;
 }
 
+function resetStats() {
+    if (!canReset) return;
+    
+    if (confirm('Are you sure you want to reset all your results?')) {
+        currentScore = 0;
+        currentStreak = 0;
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        
+        // Clear localStorage
+        localStorage.removeItem('pokerScore');
+        localStorage.removeItem('pokerStreak');
+        localStorage.removeItem('pokerCorrect');
+        localStorage.removeItem('pokerWrong');
+        
+        // Update display
+        updateDisplay();
+        
+        // Prevent multiple rapid resets
+        canReset = false;
+        setTimeout(() => { canReset = true; }, 1000);
+        
+        // Show confirmation
+        alert('Results have been reset!');
+        
+        // Start new hand
+        nextHand();
+    }
+}
+
 function nextHand() {
     canAnswer = true;
     enableActionButtons();
@@ -54,6 +85,7 @@ function disableActionButtons() {
     const buttons = document.querySelectorAll('#actions-container button');
     buttons.forEach(button => {
         button.classList.add('disabled');
+        button.disabled = true;
     });
 }
 
@@ -61,6 +93,7 @@ function enableActionButtons() {
     const buttons = document.querySelectorAll('#actions-container button');
     buttons.forEach(button => {
         button.classList.remove('disabled');
+        button.disabled = false;
     });
 }
 
@@ -73,8 +106,8 @@ function showResultModal(isCorrect, correctAction, explanation) {
     modal.className = 'modal ' + (isCorrect ? 'correct' : 'incorrect');
     title.textContent = isCorrect ? 'Correct!' : 'Incorrect!';
     message.textContent = isCorrect ? 
-        `+10 points! Great decision!` : 
-        `The correct play was to ${correctAction}`;
+        `+10 points! Great decision! Current streak: ${currentStreak}` : 
+        `The correct play was to ${correctAction}. Streak reset to 0.`;
     explanationDiv.textContent = explanation;
 
     modal.style.display = 'block';
@@ -118,26 +151,28 @@ function makeDecision(playerAction) {
     showResultModal(isCorrect, correctAction, explanation);
 }
 
+// Initialize game when window loads
 window.onload = initializeGame;
 
-
-function resetStats() {
-    if (confirm('Are you sure you want to reset all your results?')) {
-        currentScore = 0;
-        currentStreak = 0;
-        correctAnswers = 0;
-        wrongAnswers = 0;
-        
-        // Clear localStorage
-        localStorage.removeItem('pokerScore');
-        localStorage.removeItem('pokerStreak');
-        localStorage.removeItem('pokerCorrect');
-        localStorage.removeItem('pokerWrong');
-        
-        // Update display
-        updateDisplay();
-        
-        // Optional: Show confirmation
-        alert('Results have been reset!');
+// Add keyboard shortcuts
+document.addEventListener('keydown', function(event) {
+    if (!canAnswer) return;
+    
+    switch(event.key) {
+        case 'f':
+            makeDecision('fold');
+            break;
+        case 'c':
+            makeDecision('call');
+            break;
+        case 'r':
+            makeDecision('raise');
+            break;
+        case 'a':
+            makeDecision('allin');
+            break;
+        case 'n':
+            if (!canAnswer) nextHand();
+            break;
     }
-}
+});
