@@ -32,10 +32,12 @@ function updateDisplay() {
 }
 
 function nextHand() {
+    // Generate random hand and situation
     currentHand = ALL_HANDS[Math.floor(Math.random() * ALL_HANDS.length)];
     currentPosition = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
     currentScenario = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
     
+    // Update display
     document.getElementById('current-hand').textContent = currentHand;
     document.getElementById('current-position').textContent = currentPosition;
     document.getElementById('current-action').textContent = currentScenario.description;
@@ -43,9 +45,27 @@ function nextHand() {
     document.getElementById('result').textContent = '';
 }
 
-function makeDecision(action) {
-    const correctDecision = getCorrectDecision();
-    const isCorrect = action === correctDecision;
+function makeDecision(playerAction) {
+    if (!POKER_DECISIONS[currentPosition] || 
+        !POKER_DECISIONS[currentPosition][currentScenario.type]) {
+        document.getElementById('result').innerHTML = 
+            `<span class="incorrect">No data for this scenario yet</span>`;
+        nextHand();
+        return;
+    }
+
+    const decisions = POKER_DECISIONS[currentPosition][currentScenario.type];
+    let correctAction = 'fold'; // Default action is fold
+
+    // Find correct action for the current hand
+    for (let action in decisions) {
+        if (action !== 'fold' && decisions[action].includes(currentHand)) {
+            correctAction = action;
+            break;
+        }
+    }
+
+    const isCorrect = playerAction === correctAction;
 
     if (isCorrect) {
         currentScore += 10;
@@ -58,22 +78,11 @@ function makeDecision(action) {
         currentStreak = 0;
         wrongAnswers++;
         document.getElementById('result').innerHTML = 
-            `<span class="incorrect">Incorrect! The correct play was to ${correctDecision}</span>`;
+            `<span class="incorrect">Incorrect! The correct play was to ${correctAction}</span>`;
     }
     
     updateDisplay();
     saveStats();
-}
-
-function getCorrectDecision() {
-    const decisions = POKER_DECISIONS[currentPosition][currentScenario.type];
-    
-    for (let action in decisions) {
-        if (decisions[action].includes(currentHand)) {
-            return action;
-        }
-    }
-    return 'fold';
 }
 
 window.onload = initializeGame;

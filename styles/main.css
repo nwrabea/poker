@@ -70,9 +70,6 @@ button {
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-button {
     background-color: #4CAF50;
     color: white;
 }
@@ -105,4 +102,24 @@ button:hover {
 
 .incorrect {
     color: #f44336;
+}
+
+.hand span {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.position span {
+    font-weight: bold;
+    color: #90caf9;
+}
+
+.action-faced span {
+    font-weight: bold;
+    color: #ff9800;
+}
+
+.stack span {
+    font-weight: bold;
+    color: #4CAF50;
 }
