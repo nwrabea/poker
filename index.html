@@ -30,7 +30,7 @@
                 What's your decision?
             </div>
 
-            <div class="actions">
+            <div class="actions" id="actions-container">
                 <button onclick="makeDecision('fold')">Fold</button>
                 <button onclick="makeDecision('call')">Call</button>
                 <button onclick="makeDecision('raise')">Raise</button>
@@ -38,9 +38,19 @@
             </div>
 
             <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <div id="modalExplanation"></div>
             <button onclick="nextHand()" class="next-hand">Next Hand →</button>
         </div>
     </div>
+
     <script src="data/poker-hands.js"></script>
     <script src="scripts/app.js"></script>
 </body>
