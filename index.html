@@ -8,37 +8,38 @@
 </head>
 <body>
     <div class="container">
-        <h1>Poker Position Trainer</h1>
-        <div class="controls">
-            <select id="position">
-                <option value="">Select Position</option>
-                <option value="UTG">UTG</option>
-                <option value="MP">MP</option>
-                <option value="CO">CO</option>
-                <option value="BTN">BTN</option>
-                <option value="SB">SB</option>
-                <option value="BB">BB</option>
-            </select>
-
-            <select id="cards">
-                <option value="">Select Hand</option>
-                <option value="AA">AA</option>
-                <option value="KK">KK</option>
-                <option value="QQ">QQ</option>
-                <option value="AKs">AKs</option>
-                <!-- Add more hands as needed -->
-            </select>
-
-            <select id="action">
-                <option value="">Select Action</option>
-                <option value="raise">Raise</option>
-                <option value="call">Call</option>
-                <option value="fold">Fold</option>
-            </select>
-
-            <button onclick="checkDecision()">Check Decision</button>
+        <div class="header">
+            <h1>Poker Decision Trainer</h1>
+            <div class="stats">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="streak">Streak: <span id="streak">0</span></div>
+                <div class="correct-answers">Correct: <span id="correct">0</span></div>
+                <div class="wrong-answers">Wrong: <span id="wrong">0</span></div>
+            </div>
         </div>
-        <div id="result"></div>
+
+        <div class="game-area">
+            <div class="situation">
+                <div class="hand">Your Hand: <span id="current-hand"></span></div>
+                <div class="position">Position: <span id="current-position"></span></div>
+                <div class="action-faced">Action: <span id="current-action"></span></div>
+                <div class="stack">Stack: <span id="current-stack"></span> BB</div>
+            </div>
+
+            <div class="question">
+                What's your decision?
+            </div>
+
+            <div class="actions">
+                <button onclick="makeDecision('fold')">Fold</button>
+                <button onclick="makeDecision('call')">Call</button>
+                <button onclick="makeDecision('raise')">Raise</button>
+                <button onclick="makeDecision('allin')">All-in</button>
+            </div>
+
+            <div id="result" class="result"></div>
+            <button onclick="nextHand()" class="next-hand">Next Hand →</button>
+        </div>
     </div>
     <script src="data/poker-hands.js"></script>
     <script src="scripts/app.js"></script>
