@@ -1,4 +1,4 @@
-const POSITIONS = ['SB', 'BB', 'UTG', 'UTG+1', 'UTG+2', 'MP1', 'MP2', 'MP3', 'CO', 'BTN'];
+const POSITIONS = ['SB', 'BB', 'UTG', 'UTG1', 'UTG2', 'MP1', 'MP2', 'MP3', 'CO', 'BTN'];
 
 const ALL_HANDS = [
     'AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', '77', '66', '55', '44', '33', '22',
@@ -103,13 +103,13 @@ const POKER_DECISIONS = {
             }
         }
     },
-    'UTG+1': {
+    'UTG1': {
         openRaise: {
             raise: ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', 'AKs', 'AKo', 'AQs', 'AQo'],
             fold: 'rest',
             explanation: {
                 raise: "Strong hand - open raise from early position",
-                fold: "Too weak to open from UTG+1"
+                fold: "Too weak to open from UTG1"
             }
         },
         facing3bet: {
@@ -123,13 +123,13 @@ const POKER_DECISIONS = {
             }
         }
     },
-    'UTG+2': {
+    'UTG2': {
         openRaise: {
             raise: ['AA', 'KK', 'QQ', 'JJ', 'TT', '99', '88', 'AKs', 'AKo', 'AQs', 'AQo', 'AJs'],
             fold: 'rest',
             explanation: {
                 raise: "Strong hand - open raise from early/middle position",
-                fold: "Too weak to open from UTG+2"
+                fold: "Too weak to open from UTG2"
             }
         },
         facing3bet: {
