@@ -232,6 +232,16 @@ const POKER_DECISIONS = {
                 fold: "Too weak even for BTN"
             }
         },
+        facing2bet: { 
+            raise: ['AA', 'KK', 'QQ', 'JJ', 'AKs'],
+            call: ['TT', '99', '88', 'AKo', 'AQs', 'AJs', 'KQs'],
+            fold: 'rest',
+            explanation: {
+                raise: "Premium hand - 3bet for value in position",
+                call: "Strong hand that plays well in position",
+                fold: "Not strong enough to continue"
+            }
+        },
         facing3bet: {
             raise: ['AA', 'KK', 'QQ', 'AKs'],
             call: ['JJ', 'TT', '99', '88', 'AKo', 'AQs', 'AJs', 'KQs'],
