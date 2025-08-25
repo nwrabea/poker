@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,37 @@
 </head>
 <body>
     <div class="container">
-        <!-- Your HTML content -->
+        <h1>Poker Position Trainer</h1>
+        <div class="controls">
+            <select id="position">
+                <option value="">Select Position</option>
+                <option value="UTG">UTG</option>
+                <option value="MP">MP</option>
+                <option value="CO">CO</option>
+                <option value="BTN">BTN</option>
+                <option value="SB">SB</option>
+                <option value="BB">BB</option>
+            </select>
+
+            <select id="cards">
+                <option value="">Select Hand</option>
+                <option value="AA">AA</option>
+                <option value="KK">KK</option>
+                <option value="QQ">QQ</option>
+                <option value="AKs">AKs</option>
+                <!-- Add more hands as needed -->
+            </select>
+
+            <select id="action">
+                <option value="">Select Action</option>
+                <option value="raise">Raise</option>
+                <option value="call">Call</option>
+                <option value="fold">Fold</option>
+            </select>
+
+            <button onclick="checkDecision()">Check Decision</button>
+        </div>
+        <div id="result"></div>
     </div>
     <script src="data/poker-hands.js"></script>
     <script src="scripts/app.js"></script>
