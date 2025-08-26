@@ -7,11 +7,19 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.0",
+    current: "1.2.1",
     changes: [
         {
+            version: "1.2.1",
+            date: "2025-08-26",
+            changes: [
+                "Fix Fold issue",
+                "Add Versioning view to user"
+            ]
+        },
+        {
             version: "1.2.0",
-            date: "2024-01-10",
+            date: "2025-08-26",
             changes: [
                 "Added keyboard shortcuts (f-fold, c-call, r-raise, a-allin, n-next)",
                 "Improved decision logic",
@@ -20,7 +28,7 @@ const APP_VERSION = {
         },
         {
             version: "1.1.0",
-            date: "2024-01-05",
+            date: "2025-08-25",
             changes: [
                 "Added statistics tracking",
                 "Added reset functionality",
@@ -29,7 +37,7 @@ const APP_VERSION = {
         },
         {
             version: "1.0.0",
-            date: "2024-01-01",
+            date: "2025-08-25",
             changes: [
                 "Initial release",
                 "Basic poker decision trainer",
@@ -156,22 +164,29 @@ function makeDecision(playerAction) {
     }
 
     // Find the correct action for the current hand
-    let correctAction = null;
-    // Check each action category (raise, call, allin)
-    for (let action in decisions) {
+    let correctAction = 'fold'; // Default to fold
+    
+    // Check each possible action (raise, call, allin)
+    for (const action in decisions) {
+        // Skip non-action properties
         if (action === 'explanation' || action === 'fold') continue;
+        
+        // If the hand is in this action's list, that's the correct action
         if (Array.isArray(decisions[action]) && decisions[action].includes(currentHand)) {
             correctAction = action;
             break;
         }
     }
-    // If no specific action was found, the correct action is fold
-    if (!correctAction) {
-        correctAction = 'fold';
-    }
 
     const isCorrect = playerAction === correctAction;
-    const explanation = decisions.explanation[correctAction];
+    let explanation;
+    
+    // Get the correct explanation
+    if (decisions.explanation) {
+        explanation = decisions.explanation[correctAction];
+    } else {
+        explanation = "Standard play in this situation.";
+    }
 
     if (isCorrect) {
         currentScore += 10;
