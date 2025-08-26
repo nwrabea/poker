@@ -7,8 +7,16 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.1",
+    current: "1.2.2",
     changes: [
+        {
+            version: "1.2.2",
+            date: "2025-08-26",
+            changes: [
+                "Fix Fold issue, by fixing all positions options",
+                "adding facingallin as option"
+            ]
+        },
         {
             version: "1.2.1",
             date: "2025-08-26",
@@ -178,15 +186,17 @@ function makeDecision(playerAction) {
         }
     }
 
-    const isCorrect = playerAction === correctAction;
-    let explanation;
-    
-    // Get the correct explanation
-    if (decisions.explanation) {
-        explanation = decisions.explanation[correctAction];
-    } else {
-        explanation = "Standard play in this situation.";
+    // Special handling for facingAllin scenario
+    if (currentScenario.type === 'facingAllin') {
+        // In facingAllin scenarios, 'call' and 'allin' are equivalent
+        if ((playerAction === 'call' && correctAction === 'allin') || 
+            (playerAction === 'allin' && correctAction === 'call')) {
+            playerAction = correctAction;
+        }
     }
+
+    const isCorrect = playerAction === correctAction;
+    const explanation = decisions.explanation[correctAction];
 
     if (isCorrect) {
         currentScore += 10;
