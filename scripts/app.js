@@ -191,8 +191,6 @@ function makeDecision(playerAction) {
     showResultModal(isCorrect, correctAction, explanation);
 }
 
-// Initialize game when window loads
-window.onload = initializeGame;
 
 // Add keyboard shortcuts
 document.addEventListener('keydown', function(event) {
