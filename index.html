@@ -43,6 +43,13 @@
 
             <div id="result" class="result"></div>
         </div>
+
+        <!-- Version info section -->
+        <div class="version-info">
+            <button id="versionBtn" class="version-button">
+                Version <span id="currentVersion"></span>
+            </button>
+        </div>
     </div>
 
     <!-- Modal Popup -->
@@ -52,6 +59,15 @@
             <p id="modalMessage"></p>
             <div id="modalExplanation"></div>
             <button onclick="nextHand()" class="next-hand">Next Hand →</button>
+        </div>
+    </div>
+
+    <!-- Version Modal -->
+    <div id="versionModal" class="modal">
+        <div class="modal-content version-modal">
+            <h2>Version History</h2>
+            <div id="versionHistory"></div>
+            <button class="close-version-btn">Close</button>
         </div>
     </div>
 

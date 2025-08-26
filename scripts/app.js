@@ -6,6 +6,39 @@ let currentHand, currentPosition, currentScenario;
 let canAnswer = true;
 let canReset = true;
 
+const APP_VERSION = {
+    current: "1.2.0",
+    changes: [
+        {
+            version: "1.2.0",
+            date: "2024-01-10",
+            changes: [
+                "Added keyboard shortcuts (f-fold, c-call, r-raise, a-allin, n-next)",
+                "Improved decision logic",
+                "Added result explanations"
+            ]
+        },
+        {
+            version: "1.1.0",
+            date: "2024-01-05",
+            changes: [
+                "Added statistics tracking",
+                "Added reset functionality",
+                "Improved UI design"
+            ]
+        },
+        {
+            version: "1.0.0",
+            date: "2024-01-01",
+            changes: [
+                "Initial release",
+                "Basic poker decision trainer",
+                "Core functionality"
+            ]
+        }
+    ]
+};
+
 function initializeGame() {
     loadStats();
     updateDisplay();
@@ -183,3 +216,64 @@ document.addEventListener('keydown', function(event) {
             break;
     }
 });
+
+
+function initializeVersioning() {
+    const versionBtn = document.getElementById('versionBtn');
+    const versionModal = document.getElementById('versionModal');
+    const closeBtn = document.querySelector('.close-version-btn');
+    const currentVersionSpan = document.getElementById('currentVersion');
+    
+    // Set current version
+    currentVersionSpan.textContent = APP_VERSION.current;
+    
+    // Check if this is a new version for the user
+    const lastSeenVersion = localStorage.getItem('lastSeenVersion');
+    if (lastSeenVersion !== APP_VERSION.current) {
+        const badge = document.createElement('span');
+        badge.className = 'new-version-badge';
+        badge.textContent = 'NEW';
+        versionBtn.appendChild(badge);
+    }
+    
+    // Generate version history
+    const versionHistory = document.getElementById('versionHistory');
+    APP_VERSION.changes.forEach(version => {
+        const versionEntry = document.createElement('div');
+        versionEntry.className = 'version-entry';
+        
+        versionEntry.innerHTML = `
+            <h3>Version ${version.version}</h3>
+            <div class="date">${version.date}</div>
+            <ul>
+                ${version.changes.map(change => `<li>${change}</li>`).join('')}
+            </ul>
+        `;
+        
+        versionHistory.appendChild(versionEntry);
+    });
+    
+    // Event listeners
+    versionBtn.addEventListener('click', () => {
+        versionModal.style.display = 'block';
+        localStorage.setItem('lastSeenVersion', APP_VERSION.current);
+        const badge = versionBtn.querySelector('.new-version-badge');
+        if (badge) badge.remove();
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        versionModal.style.display = 'none';
+    });
+    
+    window.addEventListener('click', (event) => {
+        if (event.target === versionModal) {
+            versionModal.style.display = 'none';
+        }
+    });
+}
+
+// Add this to your window.onload
+window.onload = function() {
+    initializeGame();
+    initializeVersioning();
+};
