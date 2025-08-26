@@ -122,12 +122,19 @@ function makeDecision(playerAction) {
         return;
     }
 
-    let correctAction = 'fold';
+    // Find the correct action for the current hand
+    let correctAction = null;
+    // Check each action category (raise, call, allin)
     for (let action in decisions) {
-        if (action !== 'fold' && action !== 'explanation' && decisions[action].includes(currentHand)) {
+        if (action === 'explanation' || action === 'fold') continue;
+        if (Array.isArray(decisions[action]) && decisions[action].includes(currentHand)) {
             correctAction = action;
             break;
         }
+    }
+    // If no specific action was found, the correct action is fold
+    if (!correctAction) {
+        correctAction = 'fold';
     }
 
     const isCorrect = playerAction === correctAction;
