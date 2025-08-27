@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.2",
+    current: "1.2.3",
     changes: [
+        {
+            version: "1.2.3",
+            date: "2025-08-27",
+            changes: [
+                "Adding Table View to show to users that decision making the algorithem do according to Position/facingBets etc."
+            ]
+        },
         {
             version: "1.2.2",
             date: "2025-08-26",
@@ -295,8 +302,74 @@ function initializeVersioning() {
     });
 }
 
-// Add this to your window.onload
+function initializeStrategyView() {
+    const showBtn = document.getElementById('showStrategyBtn');
+    const modal = document.getElementById('strategyModal');
+    const closeBtn = document.querySelector('.close-strategy-btn');
+    const positionFilter = document.getElementById('positionFilter');
+    const scenarioFilter = document.getElementById('scenarioFilter');
+    
+    function generateStrategyTable(positionFilter = 'all', scenarioFilter = 'all') {
+        const tbody = document.getElementById('strategyTableBody');
+        tbody.innerHTML = '';
+        
+        for (const position in POKER_DECISIONS) {
+            if (positionFilter !== 'all' && position !== positionFilter) continue;
+            
+            const decisions = POKER_DECISIONS[position];
+            for (const scenario in decisions) {
+                if (scenarioFilter !== 'all' && scenario !== scenarioFilter) continue;
+                if (scenario === 'explanation') continue;
+                
+                const row = document.createElement('tr');
+                const decision = decisions[scenario];
+                
+                row.innerHTML = `
+                    <td>${position}</td>
+                    <td>${scenario}</td>
+                    <td>${formatHands(decision.raise || decision.allin || [])}</td>
+                    <td>${formatHands(decision.call || [])}</td>
+                    <td>${decision.fold === 'rest' ? 'Everything else' : formatHands(decision.fold)}</td>
+                    <td class="explanation">${decision.explanation[Object.keys(decision.explanation)[0]]}</td>
+                `;
+                
+                tbody.appendChild(row);
+            }
+        }
+    }
+    
+    function formatHands(hands) {
+        if (!hands.length) return '-';
+        return hands.join(', ');
+    }
+    
+    showBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        generateStrategyTable();
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    positionFilter.addEventListener('change', () => {
+        generateStrategyTable(positionFilter.value, scenarioFilter.value);
+    });
+    
+    scenarioFilter.addEventListener('change', () => {
+        generateStrategyTable(positionFilter.value, scenarioFilter.value);
+    });
+    
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// Add to your window.onload
 window.onload = function() {
     initializeGame();
     initializeVersioning();
+    initializeStrategyView();
 };

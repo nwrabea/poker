@@ -308,3 +308,68 @@ button:hover {
     font-size: 0.8em;
     margin-left: 5px;
 }
+
+.strategy-button {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.strategy-modal {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+}
+
+.strategy-filters {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.strategy-filters select {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+}
+
+.strategy-table-container {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.strategy-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2d2d2d;
+}
+
+.strategy-table th,
+.strategy-table td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left;
+}
+
+.strategy-table th {
+    background-color: #1a1a1a;
+    color: #4CAF50;
+}
+
+.strategy-table td {
+    font-size: 0.9em;
+}
+
+.hand-group {
+    color: #90caf9;
+}
+
+.explanation {
+    color: #888;
+    font-style: italic;
+}

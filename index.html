@@ -71,6 +71,48 @@
         </div>
     </div>
 
+    <div class="strategy-view">
+        <button id="showStrategyBtn" class="strategy-button">View Complete Strategy</button>
+        
+        <div id="strategyModal" class="modal">
+            <div class="modal-content strategy-modal">
+                <h2>Complete Poker Strategy</h2>
+                <div class="strategy-filters">
+                    <select id="positionFilter">
+                        <option value="all">All Positions</option>
+                        <option value="SB">SB</option>
+                        <option value="BB">BB</option>
+                        <!-- ... other positions ... -->
+                    </select>
+                    <select id="scenarioFilter">
+                        <option value="all">All Scenarios</option>
+                        <option value="openRaise">Open Raise</option>
+                        <option value="facing2bet">Facing 2bet</option>
+                        <!-- ... other scenarios ... -->
+                    </select>
+                </div>
+                <div class="strategy-table-container">
+                    <table id="strategyTable" class="strategy-table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Scenario</th>
+                                <th>Raise/All-in</th>
+                                <th>Call</th>
+                                <th>Fold</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="strategyTableBody">
+                            <!-- JavaScript will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+                <button class="close-strategy-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
     <script src="data/poker-hands.js"></script>
     <script src="scripts/app.js"></script>
 </body>
