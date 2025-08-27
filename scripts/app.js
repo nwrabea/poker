@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.8",
+    current: "1.2.801",
     changes: [
+        {
+            version: "1.2.801",
+            date: "2025-08-27",
+            changes: [
+                "Fix table size for mobile"
+            ]
+        },
         {
             version: "1.2.8",
             date: "2025-08-27",
