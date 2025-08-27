@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.4",
+    current: "1.2.5",
     changes: [
+        {
+            version: "1.2.5",
+            date: "2025-08-27",
+            changes: [
+                "CSS fixes"
+            ]
+        },
         {
             version: "1.2.4",
             date: "2025-08-27",

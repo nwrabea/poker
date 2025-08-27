@@ -1,3 +1,4 @@
+/* Base Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,6 +16,7 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
+/* Header Styles */
 .header {
     text-align: center;
     margin-bottom: 30px;
@@ -31,6 +33,7 @@ body {
     margin-top: 0;
 }
 
+/* Stats Section */
 .stats {
     display: flex;
     justify-content: center;
@@ -56,6 +59,7 @@ body {
     border-radius: 4px;
 }
 
+/* Game Area */
 .game-area {
     background-color: #363636;
     padding: 20px;
@@ -83,6 +87,7 @@ body {
     color: #4CAF50;
 }
 
+/* Action Buttons */
 .actions {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -126,22 +131,7 @@ button:hover {
     background-color: #d32f2f;
 }
 
-.result {
-    text-align: center;
-    margin: 20px 0;
-    padding: 15px;
-    border-radius: 6px;
-    font-size: 1.2em;
-}
-
-.correct {
-    color: #4CAF50;
-}
-
-.incorrect {
-    color: #f44336;
-}
-
+/* Game Elements Highlighting */
 .hand span {
     font-weight: bold;
     color: #ffd700;
@@ -162,6 +152,33 @@ button:hover {
     color: #4CAF50;
 }
 
+/* Result Display */
+.result {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 1.2em;
+}
+
+.correct {
+    color: #4CAF50;
+}
+
+.incorrect {
+    color: #f44336;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+.disabled:hover {
+    background-color: #4CAF50 !important;
+}
+
+/* Base Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -171,8 +188,10 @@ button:hover {
     height: 100%;
     background-color: rgba(0,0,0,0.7);
     z-index: 1000;
+    overflow-y: auto;
 }
 
+/* Regular Modal Content */
 .modal-content {
     position: relative;
     background-color: #2d2d2d;
@@ -206,15 +225,6 @@ button:hover {
     margin-top: 20px;
 }
 
-.disabled {
-    opacity: 0.5;
-    cursor: not-allowed !important;
-}
-
-.disabled:hover {
-    background-color: #4CAF50 !important;
-}
-
 #modalExplanation {
     margin: 15px 0;
     padding: 15px;
@@ -223,24 +233,7 @@ button:hover {
     line-height: 1.5;
 }
 
-@media (max-width: 600px) {
-    .situation {
-        grid-template-columns: 1fr;
-    }
-    
-    .actions {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .stats {
-        flex-direction: column;
-    }
-    
-    .reset-button {
-        margin: 10px 0;
-    }
-}
-
+/* Version Modal Styles */
 .version-info {
     text-align: center;
     margin-top: 20px;
@@ -309,6 +302,7 @@ button:hover {
     margin-left: 5px;
 }
 
+/* Strategy View Styles */
 .strategy-button {
     background-color: #2196F3;
     color: white;
@@ -320,13 +314,19 @@ button:hover {
     font-size: 1.1em;
 }
 
-.strategy-modal {
+/* Strategy Modal Specific Styles */
+.modal-content.strategy-modal {
     width: 95%;
     max-width: 1400px;
-    max-height: 95vh;
+    margin: 20px auto;
     padding: 20px;
+    position: relative;
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
+/* Strategy Filters */
 .strategy-filters {
     margin: 15px 0;
     display: flex;
@@ -342,10 +342,11 @@ button:hover {
     border: 1px solid #555;
 }
 
+/* Strategy Table Styles */
 .strategy-table-container {
     overflow-x: auto;
     margin: 15px 0;
-    max-height: 70vh;
+    max-height: 50vh;
     overflow-y: auto;
 }
 
@@ -381,11 +382,18 @@ button:hover {
 .strategy-table td.allin { color: #f44336; }
 .strategy-table td.fold { color: #888; }
 
+.position-cell {
+    font-weight: bold;
+    color: #90caf9;
+}
+
+/* Legend Styles */
 .legend {
     margin-top: 20px;
     padding: 15px;
     background-color: #333;
     border-radius: 4px;
+    position: relative;
 }
 
 .legend h3 {
@@ -433,7 +441,574 @@ button:hover {
     border-left: 3px solid #888;
 }
 
-.position-cell {
-    font-weight: bold;
-    color: #90caf9;
+/* Strategy Modal Button */
+.close-strategy-btn {
+    margin: 20px 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
 }
+
+.close-strategy-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Adjustments for Strategy View */
+@media (max-width: 768px) {
+    .strategy-modal {
+        width: 98%;
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .strategy-table th,
+    .strategy-table td {
+        padding: 8px;
+        min-width: 100px;
+        font-size: 0.8em;
+    }
+
+    .legend-item {
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+}
+
+/* Media Queries for Different Screen Sizes */
+@media (max-width: 1200px) {
+    .modal-content.strategy-modal {
+        width: 98%;
+        max-width: none;
+        margin: 10px auto;
+    }
+
+    .strategy-table-container {
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .strategy-filters {
+        flex-direction: column;
+    }
+
+    .strategy-filters select {
+        width: 100%;
+    }
+
+    .legend-section {
+        padding: 8px;
+    }
+
+    .legend-item {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Game Area Adjustments */
+    .situation {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Stats Adjustments */
+    .stats {
+        flex-direction: column;
+    }
+    
+    .reset-button {
+        margin: 10px 0;
+    }
+
+    /* Modal Adjustments */
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+
+    /* Strategy Table Adjustments */
+    .strategy-table th,
+    .strategy-table td {
+        padding: 8px;
+        min-width: 80px;
+        font-size: 0.8em;
+    }
+
+    .strategy-table-container {
+        max-height: 50vh;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Base Adjustments */
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    /* Header Adjustments */
+    .header h1 {
+        font-size: 1.5em;
+    }
+
+    .header h2 {
+        font-size: 1em;
+    }
+
+    /* Stats Group Adjustments */
+    .stats-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Button Adjustments */
+    button {
+        padding: 12px;
+        font-size: 1em;
+    }
+
+    /* Modal Adjustments */
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+        padding: 10px;
+    }
+
+    /* Strategy View Adjustments */
+    .strategy-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .strategy-table th,
+    .strategy-table td {
+        padding: 6px;
+        min-width: 60px;
+        font-size: 0.75em;
+    }
+
+    .legend h3 {
+        font-size: 1em;
+    }
+
+    .legend-section h4 {
+        font-size: 0.8em;
+    }
+
+    .legend-item {
+        font-size: 0.8em;
+        padding: 4px 8px;
+    }
+}
+
+/* Print Media Query */
+@media print {
+    .modal {
+        position: relative;
+        display: block;
+        height: auto;
+        background-color: white;
+    }
+
+    .modal-content {
+        margin: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    .strategy-table-container {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .close-strategy-btn,
+    .strategy-button,
+    .version-button {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    .strategy-table {
+        page-break-inside: avoid;
+    }
+
+    .legend {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .modal {
+        background-color: rgba(0,0,0,0.9);
+    }
+
+    .strategy-table th {
+        background-color: #000;
+    }
+
+    .legend-item {
+        border-width: 2px;
+    }
+
+    button {
+        border: 2px solid #fff;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    /* Already dark themed, but could add specific dark mode adjustments here */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Interactive Elements Transitions */
+button {
+    transition: all 0.2s ease-in-out;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Modal Animations */
+.modal {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Result Animations */
+.correct {
+    animation: pulse 0.5s ease-in-out;
+}
+
+.incorrect {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Strategy Table Hover Effects */
+.strategy-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+.strategy-table td {
+    transition: background-color 0.2s ease;
+}
+
+/* Legend Item Hover Effects */
+.legend-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.legend-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Version Badge Animation */
+.new-version-badge {
+    animation: pulse 2s infinite;
+}
+
+/* Filter Select Animation */
+.strategy-filters select {
+    transition: border-color 0.2s ease;
+}
+
+.strategy-filters select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Hand Display Animation */
+.hand span {
+    transition: color 0.2s ease;
+}
+
+.hand span:hover {
+    color: #fff;
+}
+
+/* Disable Animations Based on User Preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .modal-content {
+        transform: none !important;
+    }
+    
+    .legend-item:hover {
+        transform: none;
+    }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    opacity: 0.7;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #4CAF50;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Hover Effects for Interactive Elements */
+.strategy-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.close-strategy-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Transition for Modal Backdrop */
+.modal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active::before {
+    opacity: 1;
+}
+
+/* CSS Custom Properties (Variables) */
+:root {
+    /* Color Palette */
+    --primary-color: #4CAF50;
+    --primary-dark: #45a049;
+    --secondary-color: #2196F3;
+    --secondary-dark: #1976D2;
+    --danger-color: #f44336;
+    --danger-dark: #d32f2f;
+    --warning-color: #ff9800;
+    --success-color: #4CAF50;
+
+    /* Background Colors */
+    --bg-main: #1a1a1a;
+    --bg-card: #2d2d2d;
+    --bg-element: #363636;
+    --bg-element-dark: #3d3d3d;
+    --bg-element-darker: #4a4a4a;
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #90caf9;
+    --text-muted: #888888;
+    --text-highlight: #ffd700;
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 10px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.2);
+    --shadow-lg: 0 8px 16px rgba(0,0,0,0.3);
+
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Z-index layers */
+    --z-index-modal: 1000;
+    --z-index-overlay: 900;
+    --z-index-dropdown: 800;
+    --z-index-header: 700;
+}
+
+/* Utility Classes */
+/* Display */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-grid { display: grid !important; }
+
+/* Flex Utilities */
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.justify-center { justify-content: center !important; }
+.align-center { align-items: center !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-grow-1 { flex-grow: 1 !important; }
+
+/* Spacing Utilities */
+.m-0 { margin: 0 !important; }
+.mt-1 { margin-top: var(--spacing-sm) !important; }
+.mt-2 { margin-top: var(--spacing-md) !important; }
+.mt-3 { margin-top: var(--spacing-lg) !important; }
+.mb-1 { margin-bottom: var(--spacing-sm) !important; }
+.mb-2 { margin-bottom: var(--spacing-md) !important; }
+.mb-3 { margin-bottom: var(--spacing-lg) !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: var(--spacing-sm) !important; }
+.p-2 { padding: var(--spacing-md) !important; }
+.p-3 { padding: var(--spacing-lg) !important; }
+
+/* Text Utilities */
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+.font-bold { font-weight: bold !important; }
+.font-normal { font-weight: normal !important; }
+
+/* Border Utilities */
+.rounded-sm { border-radius: var(--border-radius-sm) !important; }
+.rounded-md { border-radius: var(--border-radius-md) !important; }
+.rounded-lg { border-radius: var(--border-radius-lg) !important; }
+
+/* Background Utilities */
+.bg-primary { background-color: var(--primary-color) !important; }
+.bg-secondary { background-color: var(--secondary-color) !important; }
+.bg-danger { background-color: var(--danger-color) !important; }
+.bg-dark { background-color: var(--bg-element-dark) !important; }
+
+/* Shadow Utilities */
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-md { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+
+/* Position Utilities */
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+
+/* Visibility */
+.visible { visibility: visible !important; }
+.invisible { visibility: hidden !important; }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden !important; }
+.overflow-auto { overflow: auto !important; }
+.overflow-scroll { overflow: scroll !important; }
+
+/* Width/Height */
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+
+/* Cursor */
+.cursor-pointer { cursor: pointer !important; }
+.cursor-default { cursor: default !important; }
+
+/* Opacity */
+.opacity-0 { opacity: 0 !important; }
+.opacity-50 { opacity: 0.5 !important; }
+.opacity-100 { opacity: 1 !important; }
+
+/* User Select */
+.user-select-none { user-select: none !important; }
+
+/* White Space */
+.nowrap { white-space: nowrap !important; }
+.break-word { word-break: break-word !important; }
+
