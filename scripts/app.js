@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.3",
+    current: "1.2.4",
     changes: [
+        {
+            version: "1.2.4",
+            date: "2025-08-27",
+            changes: [
+                "Bug fixes of table view"
+            ]
+        },
         {
             version: "1.2.3",
             date: "2025-08-27",
@@ -306,58 +313,84 @@ function initializeStrategyView() {
     const showBtn = document.getElementById('showStrategyBtn');
     const modal = document.getElementById('strategyModal');
     const closeBtn = document.querySelector('.close-strategy-btn');
-    const positionFilter = document.getElementById('positionFilter');
-    const scenarioFilter = document.getElementById('scenarioFilter');
+    const viewFilter = document.getElementById('viewFilter');
     
-    function generateStrategyTable(positionFilter = 'all', scenarioFilter = 'all') {
+    function generateStrategyTable(view = 'all') {
+        const header = document.getElementById('tableHeader');
         const tbody = document.getElementById('strategyTableBody');
+        
+        // Clear existing content
+        header.innerHTML = '';
         tbody.innerHTML = '';
         
-        for (const position in POKER_DECISIONS) {
-            if (positionFilter !== 'all' && position !== positionFilter) continue;
-            
+        // Generate header
+        const headers = ['Position'];
+        if (view === 'all' || view === 'openRaise') headers.push('Open Raise');
+        if (view === 'all' || view === 'facing2bet') headers.push('Facing 2bet');
+        if (view === 'all' || view === 'facing3bet') headers.push('Facing 3bet');
+        if (view === 'all' || view === 'facing4bet') headers.push('Facing 4bet');
+        if (view === 'all' || view === 'facingAllin') headers.push('Facing All-in');
+        
+        header.innerHTML = headers.map(h => `<th>${h}</th>`).join('');
+        
+        // Generate rows
+        POSITIONS.forEach(position => {
+            const row = document.createElement('tr');
             const decisions = POKER_DECISIONS[position];
-            for (const scenario in decisions) {
-                if (scenarioFilter !== 'all' && scenario !== scenarioFilter) continue;
-                if (scenario === 'explanation') continue;
-                
-                const row = document.createElement('tr');
-                const decision = decisions[scenario];
-                
-                row.innerHTML = `
-                    <td>${position}</td>
-                    <td>${scenario}</td>
-                    <td>${formatHands(decision.raise || decision.allin || [])}</td>
-                    <td>${formatHands(decision.call || [])}</td>
-                    <td>${decision.fold === 'rest' ? 'Everything else' : formatHands(decision.fold)}</td>
-                    <td class="explanation">${decision.explanation[Object.keys(decision.explanation)[0]]}</td>
-                `;
-                
-                tbody.appendChild(row);
+            
+            // Position cell
+            row.innerHTML = `<td class="position-cell">${position}</td>`;
+            
+            // Add cells based on view
+            if (view === 'all' || view === 'openRaise') {
+                row.innerHTML += generateActionCell(decisions.openRaise);
             }
-        }
+            if (view === 'all' || view === 'facing2bet') {
+                row.innerHTML += generateActionCell(decisions.facing2bet);
+            }
+            if (view === 'all' || view === 'facing3bet') {
+                row.innerHTML += generateActionCell(decisions.facing3bet);
+            }
+            if (view === 'all' || view === 'facing4bet') {
+                row.innerHTML += generateActionCell(decisions.facing4bet);
+            }
+            if (view === 'all' || view === 'facingAllin') {
+                row.innerHTML += generateActionCell(decisions.facingAllin);
+            }
+            
+            tbody.appendChild(row);
+        });
     }
     
-    function formatHands(hands) {
-        if (!hands.length) return '-';
-        return hands.join(', ');
+    function generateActionCell(decision) {
+        if (!decision) return '<td class="fold">-</td>';
+        
+        let content = '';
+        if (decision.raise && decision.raise.length) {
+            content += `<span class="raise">Raise: ${decision.raise.join(', ')}</span><br>`;
+        }
+        if (decision.call && decision.call.length) {
+            content += `<span class="call">Call: ${decision.call.join(', ')}</span><br>`;
+        }
+        if (decision.allin && decision.allin.length) {
+            content += `<span class="allin">All-in: ${decision.allin.join(', ')}</span><br>`;
+        }
+        content += `<span class="fold">Fold: ${decision.fold === 'rest' ? 'Everything else' : decision.fold}</span>`;
+        
+        return `<td>${content}</td>`;
     }
     
     showBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-        generateStrategyTable();
+        generateStrategyTable('all');
     });
     
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
     });
     
-    positionFilter.addEventListener('change', () => {
-        generateStrategyTable(positionFilter.value, scenarioFilter.value);
-    });
-    
-    scenarioFilter.addEventListener('change', () => {
-        generateStrategyTable(positionFilter.value, scenarioFilter.value);
+    viewFilter.addEventListener('change', () => {
+        generateStrategyTable(viewFilter.value);
     });
     
     window.addEventListener('click', (event) => {

@@ -71,47 +71,70 @@
         </div>
     </div>
 
-    <div class="strategy-view">
-        <button id="showStrategyBtn" class="strategy-button">View Complete Strategy</button>
-        
-        <div id="strategyModal" class="modal">
-            <div class="modal-content strategy-modal">
-                <h2>Complete Poker Strategy</h2>
-                <div class="strategy-filters">
-                    <select id="positionFilter">
-                        <option value="all">All Positions</option>
-                        <option value="SB">SB</option>
-                        <option value="BB">BB</option>
-                        <!-- ... other positions ... -->
-                    </select>
-                    <select id="scenarioFilter">
-                        <option value="all">All Scenarios</option>
-                        <option value="openRaise">Open Raise</option>
-                        <option value="facing2bet">Facing 2bet</option>
-                        <!-- ... other scenarios ... -->
-                    </select>
-                </div>
-                <div class="strategy-table-container">
-                    <table id="strategyTable" class="strategy-table">
-                        <thead>
-                            <tr>
-                                <th>Position</th>
-                                <th>Scenario</th>
-                                <th>Raise/All-in</th>
-                                <th>Call</th>
-                                <th>Fold</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody id="strategyTableBody">
-                            <!-- JavaScript will populate this -->
-                        </tbody>
-                    </table>
-                </div>
-                <button class="close-strategy-btn">Close</button>
+    <!-- Add this to your HTML -->
+<div class="strategy-view">
+    <button id="showStrategyBtn" class="strategy-button">View Complete Strategy Chart</button>
+    
+    <div id="strategyModal" class="modal">
+        <div class="modal-content strategy-modal">
+            <h2>Poker Strategy Chart</h2>
+            <div class="strategy-filters">
+                <select id="viewFilter">
+                    <option value="all">All Actions</option>
+                    <option value="openRaise">Open Raising Ranges</option>
+                    <option value="facing2bet">Facing 2bet Actions</option>
+                    <option value="facing3bet">Facing 3bet Actions</option>
+                    <option value="facing4bet">Facing 4bet Actions</option>
+                    <option value="facingAllin">Facing All-in Actions</option>
+                </select>
+            </div>
+            <div class="strategy-table-container">
+                <table id="strategyTable" class="strategy-table">
+                    <thead>
+                        <tr id="tableHeader">
+                            <!-- Will be dynamically populated -->
+                        </tr>
+                    </thead>
+                    <tbody id="strategyTableBody">
+                        <!-- Will be dynamically populated -->
+                    </tbody>
+                </table>
+            </div>
+        <div class="legend">
+            <h3>Legend:</h3>
+            <div class="legend-section">
+                <h4>Open Raise:</h4>
+                <div class="legend-item raise">Raise (2.5-3BB)</div>
+                <div class="legend-item fold">Fold</div>
+            </div>
+            <div class="legend-section">
+                <h4>Facing 2bet:</h4>
+                <div class="legend-item raise">3bet (Re-raise)</div>
+                <div class="legend-item call">Call</div>
+                <div class="legend-item fold">Fold</div>
+            </div>
+            <div class="legend-section">
+                <h4>Facing 3bet:</h4>
+                <div class="legend-item raise">4bet</div>
+                <div class="legend-item call">Call</div>
+                <div class="legend-item fold">Fold</div>
+            </div>
+            <div class="legend-section">
+                <h4>Facing 4bet:</h4>
+                <div class="legend-item allin">All-in (5bet)</div>
+                <div class="legend-item call">Call</div>
+                <div class="legend-item fold">Fold</div>
+            </div>
+            <div class="legend-section">
+                <h4>Facing All-in:</h4>
+                <div class="legend-item call">Call</div>
+                <div class="legend-item fold">Fold</div>
             </div>
         </div>
+        <button class="close-strategy-btn">Close</button>
+        </div>
     </div>
+</div>
 
     <script src="data/poker-hands.js"></script>
     <script src="scripts/app.js"></script>
