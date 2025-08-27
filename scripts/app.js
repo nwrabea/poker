@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.7",
+    current: "1.2.8",
     changes: [
+        {
+            version: "1.2.8",
+            date: "2025-08-27",
+            changes: [
+                "Add visual table and seats"
+            ]
+        },
         {
             version: "1.2.7",
             date: "2025-08-27",
@@ -271,24 +278,25 @@ function makeDecision(playerAction) {
 
 // Add keyboard shortcuts
 document.addEventListener('keydown', function(event) {
-    if (!canAnswer) return;
-    
-    switch(event.key) {
-        case 'f':
-            makeDecision('fold');
-            break;
-        case 'c':
-            makeDecision('call');
-            break;
-        case 'r':
-            makeDecision('raise');
-            break;
-        case 'a':
-            makeDecision('allin');
-            break;
-        case 'n':
-            if (!canAnswer) nextHand();
-            break;
+    if (event.key === 'n') {
+        nextHand();
+    } else if (!canAnswer) {
+        return;
+    } else {
+        switch(event.key) {
+            case 'f':
+                makeDecision('fold');
+                break;
+            case 'c':
+                makeDecision('call');
+                break;
+            case 'r':
+                makeDecision('raise');
+                break;
+            case 'a':
+                makeDecision('allin');
+                break;
+        }
     }
 });
 
@@ -482,23 +490,27 @@ function convertHandToImages(hand) {
     }
 }
 
-// Modify your existing nextHand function to use images
 function nextHand() {
-    canAnswer = true;
-    enableActionButtons();
-    
-    currentHand = ALL_HANDS[Math.floor(Math.random() * ALL_HANDS.length)];
-    currentPosition = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
-    currentScenario = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
-    
-    // Update this line to use images instead of text
-    document.getElementById('current-hand').innerHTML = convertHandToImages(currentHand);
-    document.getElementById('current-position').textContent = currentPosition;
-    document.getElementById('current-action').textContent = currentScenario.description;
-    document.getElementById('current-stack').textContent = Math.floor(Math.random() * 50 + 75);
-    document.getElementById('result').textContent = '';
-    
-    document.getElementById('resultModal').style.display = 'none';
+    try {
+        canAnswer = true;
+        enableActionButtons();
+        
+        currentHand = ALL_HANDS[Math.floor(Math.random() * ALL_HANDS.length)];
+        currentPosition = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
+        currentScenario = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
+        
+        // Update table display
+        updateTableDisplay(currentPosition);
+        
+        document.getElementById('current-action').textContent = currentScenario.description;
+        document.getElementById('current-stack').textContent = Math.floor(Math.random() * 50 + 75);
+        document.getElementById('result').textContent = '';
+        
+        document.getElementById('resultModal').style.display = 'none';
+    } catch (error) {
+        console.error('Error in nextHand:', error);
+        alert('An error occurred. Please refresh the page.');
+    }
 }
 
 // Add to your window.onload

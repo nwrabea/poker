@@ -240,16 +240,6 @@ button:hover {
     padding: 10px;
 }
 
-.version-button {
-    background-color: #2196F3;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
 .version-button:hover {
     background-color: #1976D2;
 }
@@ -302,17 +292,7 @@ button:hover {
     margin-left: 5px;
 }
 
-/* Strategy View Styles */
-.strategy-button {
-    background-color: #2196F3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 10px;
-    font-size: 1.1em;
-}
+
 
 /* Strategy Modal Specific Styles */
 .modal-content.strategy-modal {
@@ -1039,9 +1019,10 @@ button:active {
 /* Table and Seats style */
 .poker-table-container {
     width: 100%;
-    aspect-ratio: 2/1;
+    aspect-ratio: 16/9; /* Changed from 2/1 for better proportion */
     position: relative;
     margin: 20px auto;
+    height: 400px; /* Added fixed height */
 }
 
 .poker-table {
@@ -1049,29 +1030,18 @@ button:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
+    width: 90%; /* Increased from 80% */
+    height: 90%; /* Increased from 80% */
     background: #2d7c34;
-    border-radius: 150px;
+    border-radius: 200px; /* Increased from 150px */
     border: 15px solid #4a3500;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.5),
-                0 0 30px rgba(0,0,0,0.3);
 }
 
 .seat {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    background: #333;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    border: 3px solid #666;
-    transition: all 0.3s ease;
-    cursor: default;
+    width: 50px; /* Reduced from 60px */
+    height: 50px; /* Reduced from 60px */
+    font-size: 0.8em; /* Added to make text smaller */
 }
 
 .seat-cards {
@@ -1097,16 +1067,16 @@ button:active {
 }
 
 /* Position all seats */
-.seat-btn { bottom: 0; left: 50%; transform: translateX(-50%); }
-.seat-sb { bottom: 20%; left: 20%; }
-.seat-bb { bottom: 40%; left: 10%; }
-.seat-utg { top: 40%; left: 10%; }
-.seat-utg1 { top: 20%; left: 20%; }
-.seat-utg2 { top: 10%; left: 35%; }
-.seat-mp1 { top: 10%; left: 50%; }
-.seat-mp2 { top: 10%; right: 35%; }
-.seat-mp3 { top: 20%; right: 20%; }
-.seat-co { top: 40%; right: 10%; }
+.seat-btn { bottom: 5%; left: 50%; transform: translateX(-50%); }
+.seat-sb { bottom: 15%; left: 25%; }
+.seat-bb { bottom: 30%; left: 15%; }
+.seat-utg { top: 30%; left: 15%; }
+.seat-utg1 { top: 15%; left: 25%; }
+.seat-utg2 { top: 5%; left: 35%; }
+.seat-mp1 { top: 5%; left: 50%; }
+.seat-mp2 { top: 5%; right: 35%; }
+.seat-mp3 { top: 15%; right: 25%; }
+.seat-co { top: 30%; right: 15%; }
 
 .dealer-button {
     position: absolute;
@@ -1139,4 +1109,14 @@ button:active {
 .seat-cards .card-image img {
     width: 40px;
     height: auto;
+}
+
+.version-info, .strategy-view {
+    position: relative;
+    z-index: 1000;
+}
+
+.version-button, .strategy-button {
+    position: relative;
+    z-index: 1001;
 }
