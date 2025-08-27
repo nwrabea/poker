@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.6",
+    current: "1.2.7",
     changes: [
+        {
+            version: "1.2.7",
+            date: "2025-08-27",
+            changes: [
+                "Cards as images"
+            ]
+        },
         {
             version: "1.2.6",
             date: "2025-08-27",
@@ -97,10 +104,11 @@ function loadStats() {
 }
 
 function saveStats() {
-    localStorage.setItem('pokerScore', currentScore);
-    localStorage.setItem('pokerStreak', currentStreak);
-    localStorage.setItem('pokerCorrect', correctAnswers);
-    localStorage.setItem('pokerWrong', wrongAnswers);
+    // Convert numbers to strings explicitly
+    localStorage.setItem('pokerScore', currentScore.toString());
+    localStorage.setItem('pokerStreak', currentStreak.toString());
+    localStorage.setItem('pokerCorrect', correctAnswers.toString());
+    localStorage.setItem('pokerWrong', wrongAnswers.toString());
 }
 
 function updateDisplay() {
@@ -148,14 +156,30 @@ function nextHand() {
     currentPosition = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
     currentScenario = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
     
-    document.getElementById('current-hand').textContent = currentHand;
-    document.getElementById('current-position').textContent = currentPosition;
+    // Update table display
+    updateTableDisplay(currentPosition);
+    
     document.getElementById('current-action').textContent = currentScenario.description;
     document.getElementById('current-stack').textContent = Math.floor(Math.random() * 50 + 75);
     document.getElementById('result').textContent = '';
     
-    // Hide modal
     document.getElementById('resultModal').style.display = 'none';
+}
+
+function updateTableDisplay(position) {
+    // Remove active class from all seats
+    document.querySelectorAll('.seat').forEach(seat => {
+        seat.classList.remove('active', 'your-seat');
+        seat.querySelector('.seat-cards').innerHTML = '';
+    });
+    
+    // Add active class to your seat and show cards
+    const yourSeat = document.querySelector(`.seat[data-position="${position}"]`);
+    if (yourSeat) {
+        yourSeat.classList.add('your-seat');
+        const cardsContainer = yourSeat.querySelector('.seat-cards');
+        cardsContainer.innerHTML = convertHandToImages(currentHand);
+    }
 }
 
 function disableActionButtons() {
