@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.801",
+    current: "1.2.802",
     changes: [
+        {
+            version: "1.2.802",
+            date: "2025-08-27",
+            changes: [
+                "Fix table size for mobile - Attempt 2"
+            ]
+        },
         {
             version: "1.2.801",
             date: "2025-08-27",
@@ -192,7 +199,11 @@ function updateTableDisplay(position) {
     if (yourSeat) {
         yourSeat.classList.add('your-seat');
         const cardsContainer = yourSeat.querySelector('.seat-cards');
-        cardsContainer.innerHTML = convertHandToImages(currentHand);
+        
+        // Add a slight delay for animation
+        setTimeout(() => {
+            cardsContainer.innerHTML = convertHandToImages(currentHand);
+        }, 100);
     }
 }
 

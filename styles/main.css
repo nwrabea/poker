@@ -67,11 +67,18 @@ body {
 }
 
 .situation {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     margin-bottom: 20px;
-    font-size: 1.2em;
+}
+
+@media (min-width: 769px) {
+    .situation {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 20px;
+    }
 }
 
 .hand, .position, .action-faced, .stack {
@@ -706,10 +713,17 @@ button:hover {
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* Pulse animation for active seat */
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% { 
+        box-shadow: 0 0 15px rgba(255,82,82,0.5);
+    }
+    50% { 
+        box-shadow: 0 0 25px rgba(255,82,82,0.8);
+    }
+    100% { 
+        box-shadow: 0 0 15px rgba(255,82,82,0.5);
+    }
 }
 
 @keyframes shake {
@@ -1046,96 +1060,160 @@ button:active {
 /* Table and Seats style */
 .poker-table-container {
     width: 100%;
-    aspect-ratio: 16/9;
+    max-width: 600px;
+    aspect-ratio: 16/10;
     position: relative;
     margin: 20px auto;
-    overflow: hidden; /* Add this */
-    max-width: 800px; /* Add this */
+    padding: 20px;
 }
 
 .poker-table {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; /* Change from 90% */
-    height: 100%; /* Change from 90% */
-    background: #2d7c34;
-    border-radius: 50%; /* Change from 200px to make it more responsive */
-    border: 15px solid #4a3500;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, #3d8b40 0%, #2d6e30 70%, #1d5e20 100%);
+    border-radius: 50%;
+    border: 8px solid #8B4513;
+    box-shadow: 
+        inset 0 0 50px rgba(0,0,0,0.5),
+        0 0 20px rgba(0,0,0,0.3),
+        inset 0 0 100px rgba(0,0,0,0.2);
+}
+
+.poker-table::before {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
 }
 
 .seat {
     position: absolute;
-    width: 45px; /* Reduced size */
-    height: 45px;
-    background: #333;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(145deg, #404040, #2a2a2a);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.8em;
+    font-size: 0.75em;
     font-weight: bold;
-    border: 2px solid #666;
+    border: 2px solid #555;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.seat:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 .seat-cards {
     position: absolute;
-    top: -70px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 5px;
+    gap: 3px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 20;
 }
 
+
 .seat.your-seat {
-    background: #f44336;
-    border-color: #fff;
     animation: pulse 2s infinite;
 }
 
 .seat.your-seat .seat-cards {
-    opacity: 1;
     animation: showCards 0.5s ease forwards;
 }
 
-/* Position all seats */
-.seat-btn { bottom: 5%; left: 50%; transform: translateX(-50%); }
-.seat-sb { bottom: 20%; left: 30%; }
-.seat-bb { bottom: 35%; left: 20%; }
-.seat-utg { top: 35%; left: 20%; }
-.seat-utg1 { top: 20%; left: 30%; }
-.seat-utg2 { top: 10%; left: 40%; }
-.seat-mp1 { top: 5%; left: 50%; transform: translateX(-50%); }
-.seat-mp2 { top: 10%; right: 40%; }
-.seat-mp3 { top: 20%; right: 30%; }
-.seat-co { top: 35%; right: 20%; }
+/* Position seats in an elliptical pattern */
+.seat-btn { 
+    bottom: 5%; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+.seat-sb { 
+    bottom: 15%; 
+    left: 25%; 
+}
+
+.seat-bb { 
+    bottom: 30%; 
+    left: 10%; 
+}
+
+.seat-utg { 
+    top: 30%; 
+    left: 10%; 
+}
+
+.seat-utg1 { 
+    top: 15%; 
+    left: 25%; 
+}
+
+.seat-utg2 { 
+    top: 5%; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+.seat-mp1 { 
+    top: 10%; 
+    right: 35%; 
+}
+
+.seat-mp2 { 
+    top: 20%; 
+    right: 20%; 
+}
+
+.seat-mp3 { 
+    top: 35%; 
+    right: 10%; 
+}
+
+.seat-co { 
+    bottom: 35%; 
+    right: 10%; 
+}
 
 .dealer-button {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background: white;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #ffffff, #e0e0e0);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: black;
     font-weight: bold;
+    font-size: 0.9em;
     border: 2px solid #333;
-    bottom: 10%;
-    left: 55%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    bottom: 25%;
+    right: 30%;
+    z-index: 15;
 }
 
+/* Animation for showing cards */
 @keyframes showCards {
     from {
         opacity: 0;
-        transform: translateY(20px) translateX(-50%);
+        transform: translateY(10px) translateX(-50%);
     }
     to {
         opacity: 1;
@@ -1143,10 +1221,18 @@ button:active {
     }
 }
 
-/* Adjust card size when shown on table */
+/* Card styling when shown on table */
+.seat-cards .card-image {
+    display: inline-block;
+    margin: 0 1px;
+}
+
 .seat-cards .card-image img {
-    width: 40px;
+    width: 45px;
     height: auto;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border: 1px solid #333;
 }
 
 .version-info, .strategy-view {
@@ -1159,40 +1245,101 @@ button:active {
     z-index: 1001;
 }
 
-/* Add responsive styles for mobile */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .poker-table-container {
-        aspect-ratio: 4/3; /* More square shape on mobile */
+        max-width: 100%;
+        padding: 10px;
+        aspect-ratio: 4/3;
+    }
+
+    .poker-table {
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: 90%;
+        border-width: 6px;
     }
 
     .seat {
-        width: 35px; /* Even smaller on mobile */
-        height: 35px;
-        font-size: 0.7em;
+        width: 40px;
+        height: 40px;
+        font-size: 0.65em;
     }
 
-    /* Adjust seat positions for mobile */
-    .seat-btn { bottom: 2%; }
-    .seat-sb { bottom: 15%; left: 25%; }
-    .seat-bb { bottom: 30%; left: 15%; }
-    .seat-utg { top: 30%; left: 15%; }
-    .seat-utg1 { top: 15%; left: 25%; }
-    .seat-utg2 { top: 5%; left: 35%; }
-    .seat-mp1 { top: 2%; }
-    .seat-mp2 { top: 5%; right: 35%; }
-    .seat-mp3 { top: 15%; right: 25%; }
-    .seat-co { top: 30%; right: 15%; }
-}
-
-/* Add for very small screens */
-@media (max-width: 480px) {
-    .poker-table-container {
-        aspect-ratio: 1/1; /* Square on very small screens */
+    .seat-cards {
+        bottom: 50px;
     }
 
-    .seat {
+    .seat-cards .card-image img {
+        width: 35px;
+    }
+
+    /* Adjust positions for mobile */
+    .seat-btn { bottom: 3%; }
+    .seat-sb { bottom: 12%; left: 20%; }
+    .seat-bb { bottom: 25%; left: 8%; }
+    .seat-utg { top: 25%; left: 8%; }
+    .seat-utg1 { top: 12%; left: 20%; }
+    .seat-utg2 { top: 3%; left: 50%; }
+    .seat-mp1 { top: 8%; right: 30%; }
+    .seat-mp2 { top: 18%; right: 18%; }
+    .seat-mp3 { top: 30%; right: 8%; }
+    .seat-co { bottom: 30%; right: 8%; }
+
+    .dealer-button {
         width: 30px;
         height: 30px;
+        font-size: 0.8em;
+        bottom: 20%;
+        right: 25%;
+    }
+}
+
+@media (max-width: 480px) {
+    .poker-table-container {
+        aspect-ratio: 1/1;
+    }
+
+    .seat {
+        width: 35px;
+        height: 35px;
         font-size: 0.6em;
     }
+
+    .seat-cards .card-image img {
+        width: 30px;
+    }
+
+    .seat-cards {
+        bottom: 45px;
+    }
+
+    /* Fine-tune positions for very small screens */
+    .seat-btn { bottom: 2%; }
+    .seat-sb { bottom: 10%; left: 18%; }
+    .seat-bb { bottom: 22%; left: 6%; }
+    .seat-utg { top: 22%; left: 6%; }
+    .seat-utg1 { top: 10%; left: 18%; }
+    .seat-utg2 { top: 2%; }
+    .seat-mp1 { top: 6%; right: 28%; }
+    .seat-mp2 { top: 15%; right: 15%; }
+    .seat-mp3 { top: 28%; right: 6%; }
+    .seat-co { bottom: 28%; right: 6%; }
+}
+
+/* Game info styling to match table theme */
+.game-info {
+    background: linear-gradient(145deg, #3d3d3d, #2d2d2d);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.game-info > div {
+    margin: 5px 0;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
 }
