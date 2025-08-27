@@ -13,7 +13,7 @@ const APP_VERSION = {
             version: "1.2.7",
             date: "2025-08-27",
             changes: [
-                "Cards as images"
+                "Add visual table and seats"
             ]
         },
         {
