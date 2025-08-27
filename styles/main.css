@@ -1012,3 +1012,26 @@ button:active {
 .nowrap { white-space: nowrap !important; }
 .break-word { word-break: break-word !important; }
 
+.card-image {
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.card-image img {
+    width: 60px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.card-image img:hover {
+    transform: translateY(-5px);
+}
+
+/* For better mobile display */
+@media (max-width: 480px) {
+    .card-image img {
+        width: 45px;
+    }
+}

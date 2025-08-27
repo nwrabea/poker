@@ -7,8 +7,15 @@ let canAnswer = true;
 let canReset = true;
 
 const APP_VERSION = {
-    current: "1.2.5",
+    current: "1.2.6",
     changes: [
+        {
+            version: "1.2.6",
+            date: "2025-08-27",
+            changes: [
+                "Cards as images"
+            ]
+        },
         {
             version: "1.2.5",
             date: "2025-08-27",
@@ -405,6 +412,69 @@ function initializeStrategyView() {
             modal.style.display = 'none';
         }
     });
+}
+
+// Add these functions to app.js
+function getCardImagePath(card, suit) {
+    const cardName = CARD_MAP[card];
+    const suitName = SUIT_MAP[suit.toLowerCase()];
+    return `assets/cards/${cardName}_of_${suitName}.png`;
+}
+
+function convertHandToImages(hand) {
+    if (hand.length === 2) { // Pocket pairs
+        return `
+            <span class="card-image">
+                <img src="${getCardImagePath(hand[0], 'h')}" alt="${hand[0]}♥">
+            </span>
+            <span class="card-image">
+                <img src="${getCardImagePath(hand[0], 's')}" alt="${hand[0]}♠">
+            </span>
+        `;
+    }
+    
+    const card1 = hand[0];
+    const card2 = hand[1];
+    const suited = hand[2] === 's';
+    
+    if (suited) {
+        return `
+            <span class="card-image">
+                <img src="${getCardImagePath(card1, 's')}" alt="${card1}♠">
+            </span>
+            <span class="card-image">
+                <img src="${getCardImagePath(card2, 's')}" alt="${card2}♠">
+            </span>
+        `;
+    } else {
+        return `
+            <span class="card-image">
+                <img src="${getCardImagePath(card1, 's')}" alt="${card1}♠">
+            </span>
+            <span class="card-image">
+                <img src="${getCardImagePath(card2, 'h')}" alt="${card2}♥">
+            </span>
+        `;
+    }
+}
+
+// Modify your existing nextHand function to use images
+function nextHand() {
+    canAnswer = true;
+    enableActionButtons();
+    
+    currentHand = ALL_HANDS[Math.floor(Math.random() * ALL_HANDS.length)];
+    currentPosition = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
+    currentScenario = SCENARIOS[Math.floor(Math.random() * SCENARIOS.length)];
+    
+    // Update this line to use images instead of text
+    document.getElementById('current-hand').innerHTML = convertHandToImages(currentHand);
+    document.getElementById('current-position').textContent = currentPosition;
+    document.getElementById('current-action').textContent = currentScenario.description;
+    document.getElementById('current-stack').textContent = Math.floor(Math.random() * 50 + 75);
+    document.getElementById('result').textContent = '';
+    
+    document.getElementById('resultModal').style.display = 'none';
 }
 
 // Add to your window.onload

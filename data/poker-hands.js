@@ -1,3 +1,27 @@
+// Add these mapping constants at the top of poker-hands.js
+const CARD_MAP = {
+    '2': '2',
+    '3': '3',
+    '4': '4',
+    '5': '5',
+    '6': '6',
+    '7': '7',
+    '8': '8',
+    '9': '9',
+    'T': '10',
+    'J': 'jack',
+    'Q': 'queen',
+    'K': 'king',
+    'A': 'ace'
+};
+
+const SUIT_MAP = {
+    's': 'spades',
+    'h': 'hearts',
+    'd': 'diamonds',
+    'c': 'clubs'
+};
+
 const POSITIONS = ['SB', 'BB', 'UTG', 'UTG1', 'UTG2', 'MP1', 'MP2', 'MP3', 'CO', 'BTN'];
 
 const ALL_HANDS = [
