@@ -3,185 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poker Training Tool</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Poker Pre-Flop Decision Trainer</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Rabea's Pre-Flop Decision Trainer</h1>
-            <h2>Lets be ready to the Kings !!!</h2>
-            <div class="stats">
-                <div class="stats-group">
-                    <div class="score">Score: <span id="score">0</span></div>
-                    <div class="streak">Streak: <span id="streak">0</span></div>
-                    <div class="correct-answers">Correct: <span id="correct">0</span></div>
-                    <div class="wrong-answers">Wrong: <span id="wrong">0</span></div>
-                </div>
-                <button id="resetButton" onclick="resetStats()" class="reset-button">Reset Results</button>
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="level-info">
+                <span class="label">Level</span>
+                <span class="value">Training Mode</span>
+            </div>
+            <div class="timer">
+                <span id="session-time">00:00</span>
+            </div>
+            <div class="prize-info">
+                <span class="label">Score</span>
+                <span class="value" id="score">0</span>
             </div>
         </div>
 
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="label">Streak</span>
+                <span class="value" id="streak">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="label">Correct</span>
+                <span class="value correct" id="correct">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="label">Wrong</span>
+                <span class="value wrong" id="wrong">0</span>
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
         <div class="game-area">
-            <div class="situation">
-                <div class="poker-table-container">
-                    <div class="poker-table">
-                        <div class="seat seat-btn" data-position="BTN">
-                            <div class="seat-cards"></div>
-                            BTN
+            <!-- Poker Table -->
+            <div class="poker-table-container">
+                <div class="poker-table">
+                    <!-- Table Felt -->
+                    <div class="table-felt">
+                        <!-- Center Logo/Pot Area -->
+                        <div class="table-center">
+                            <div class="pot-display">
+                                <span class="pot-label">Current Action:</span>
+                                <span class="pot-amount" id="current-action">Loading...</span>
+                            </div>
+                            <div class="chips-area" id="pot-chips"></div>
                         </div>
-                        <div class="seat seat-sb" data-position="SB">
-                            <div class="seat-cards"></div>
-                            SB
+
+                        <!-- Seats -->
+                        <!-- Seat 3 - Left of dealer (UTG) -->
+                        <div class="seat seat-3" data-position="UTG">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">3</div>
+                                </div>
+                                <div class="player-name">UTG</div>
+                                <div class="chip-count">40 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
+                            <div class="position-indicator"></div>
                         </div>
-                        <div class="seat seat-bb" data-position="BB">
-                            <div class="seat-cards"></div>
-                            BB
+
+                        <!-- Seat 2 - Left (BB) -->
+                        <div class="seat seat-2" data-position="BB">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">2</div>
+                                </div>
+                                <div class="player-name">BB</div>
+                                <div class="chip-count">65 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-utg" data-position="UTG">
-                            <div class="seat-cards"></div>
-                            UTG
+
+                        <!-- Seat 1 - Top Left (SB) -->
+                        <div class="seat seat-1" data-position="SB">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">1</div>
+                                </div>
+                                <div class="player-name">SB</div>
+                                <div class="chip-count">28 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-utg1" data-position="UTG1">
-                            <div class="seat-cards"></div>
-                            UTG1
+
+                        <!-- Seat 4 - Top Left-Center (UTG+1) -->
+                        <div class="seat seat-4" data-position="UTG1">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">4</div>
+                                </div>
+                                <div class="player-name">UTG+1</div>
+                                <div class="chip-count">85 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-utg2" data-position="UTG2">
-                            <div class="seat-cards"></div>
-                            UTG2
+
+                        <!-- Seat 5 - Top Right-Center (MP1) -->
+                        <div class="seat seat-5" data-position="MP1">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">5</div>
+                                </div>
+                                <div class="player-name">MP1</div>
+                                <div class="chip-count">73 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-mp1" data-position="MP1">
-                            <div class="seat-cards"></div>
-                            MP1
+
+                        <!-- Seat 6 - Top Right (MP2) -->
+                        <div class="seat seat-6" data-position="MP2">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">6</div>
+                                </div>
+                                <div class="player-name">MP2</div>
+                                <div class="chip-count">15 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-mp2" data-position="MP2">
-                            <div class="seat-cards"></div>
-                            MP2
+
+                        <!-- Seat 7 - Right (MP3) -->
+                        <div class="seat seat-7" data-position="MP3">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">7</div>
+                                </div>
+                                <div class="player-name">MP3</div>
+                                <div class="chip-count">91 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-mp3" data-position="MP3">
-                            <div class="seat-cards"></div>
-                            MP3
+
+                        <!-- Seat 8 - Right of dealer (CO) -->
+                        <div class="seat seat-8" data-position="CO">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">8</div>
+                                </div>
+                                <div class="player-name">CO</div>
+                                <div class="chip-count">56 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="seat seat-co" data-position="CO">
-                            <div class="seat-cards"></div>
-                            CO
+
+                        <!-- Seat 9 - Right of dealer (BTN) -->
+                        <div class="seat seat-9" data-position="BTN">
+                            <div class="player-info">
+                                <div class="avatar">
+                                    <div class="seat-number">9</div>
+                                </div>
+                                <div class="player-name">BTN</div>
+                                <div class="chip-count">78 BB</div>
+                            </div>
+                            <div class="cards-container"></div>
                         </div>
-                        <div class="dealer-button">D</div>
+
+                        <!-- Dealer Seat at 6 o'clock -->
+                        <div class="dealer-seat" id="dealer-seat">
+                            <div class="dealer-cutout"></div>
+                            <div class="dealer-info">
+                                <div class="dealer-avatar">
+                                    <img id="dealer-image" src="assets/images/dealer_women.png" alt="Dealer">
+                                </div>
+                                <div class="dealer-name">Dealer</div>
+                            </div>
+                            <!-- Action Buttons -->
+                            <div class="action-panel" id="actionPanel">
+                                <div class="action-toggle" onclick="toggleActionPanel()">
+                                    <span class="toggle-text">Actions</span>
+                                    <span class="toggle-arrow">▲</span>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="action-btn fold-btn" onclick="event.stopPropagation(); makeDecision('fold')">
+                                        Fold
+                                    </button>
+                                    <button class="action-btn call-btn" onclick="event.stopPropagation(); makeDecision('call')">
+                                        Call
+                                    </button>
+                                    <button class="action-btn raise-btn" onclick="event.stopPropagation(); makeDecision('raise')">
+                                        Raise
+                                    </button>
+                                    <button class="action-btn allin-btn" onclick="event.stopPropagation(); makeDecision('allin')">
+                                        All In
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            <div class="game-info">
-                <div class="action-faced">Action: <span id="current-action"></span></div>
-                <div class="stack">Stack: <span id="current-stack"></span> BB</div>
             </div>
         </div>
 
-            <div class="question">
-                What's your decision?
-            </div>
-
-            <div class="actions" id="actions-container">
-                <button onclick="makeDecision('fold')">Fold</button>
-                <button onclick="makeDecision('call')">Call</button>
-                <button onclick="makeDecision('raise')">Raise</button>
-                <button onclick="makeDecision('allin')">All-in</button>
-            </div>
-
-            <div id="result" class="result"></div>
-        </div>
-
-        <!-- Version info section -->
-        <div class="version-info">
-            <button id="versionBtn" class="version-button">
-                Version <span id="currentVersion"></span>
+        <!-- Bottom Controls -->
+        <div class="bottom-controls">
+            <button class="control-btn" onclick="showMenu()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+            <button class="control-btn" onclick="showChat()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"/>
+                </svg>
+            </button>
+            <button class="control-btn" onclick="showStats()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                </svg>
             </button>
         </div>
     </div>
 
-    <!-- Modal Popup -->
+    <!-- Result Modal -->
     <div id="resultModal" class="modal">
         <div class="modal-content">
-            <h2 id="modalTitle"></h2>
-            <p id="modalMessage"></p>
-            <div id="modalExplanation"></div>
-            <button onclick="nextHand()" class="next-hand">Next Hand →</button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Result</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+                <div id="modalExplanation" class="explanation"></div>
+            </div>            
+            <div class="modal-footer">
+                <button class="modal-btn primary" onclick="nextHand()">Next Hand (N)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Modal -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content menu-modal">
+            <div class="modal-header">
+                <h2>Menu</h2>
+                <button class="close-btn" onclick="closeModal('menuModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <button class="menu-item" onclick="resetStats()">Reset Statistics</button>
+                <button class="menu-item" onclick="showStrategy()">View Strategy Chart</button>
+                <button class="menu-item" onclick="showVersion()">Version Info</button>
+                <button class="menu-item" onclick="showSettings()">Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Strategy Modal -->
+    <div id="strategyModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2>Pre-Flop Strategy Chart</h2>
+                <button class="close-btn" onclick="closeModal('strategyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="strategy-filters">
+                    <select id="positionFilter" onchange="updateStrategyView()">
+                        <option value="all">All Positions</option>
+                        <option value="UTG">UTG</option>
+                        <option value="UTG1">UTG+1</option>
+                        <option value="UTG2">UTG+2</option>
+                        <option value="MP1">MP1</option>
+                        <option value="MP2">MP2</option>
+                        <option value="MP3">MP3</option>
+                        <option value="CO">CO</option>
+                        <option value="BTN">BTN</option>
+                        <option value="SB">SB</option>
+                        <option value="BB">BB</option>
+                    </select>
+                    <select id="actionFilter" onchange="updateStrategyView()">
+                        <option value="all">All Actions</option>
+                        <option value="openRaise">Open Raise</option>
+                        <option value="facing2bet">Facing 2-Bet</option>
+                        <option value="facing3bet">Facing 3-Bet</option>
+                        <option value="facing4bet">Facing 4-Bet</option>
+                        <option value="facingAllin">Facing All-In</option>
+                    </select>
+                </div>
+                <div id="strategyContent" class="strategy-content"></div>
+            </div>
         </div>
     </div>
 
     <!-- Version Modal -->
     <div id="versionModal" class="modal">
-        <div class="modal-content version-modal">
-            <h2>Version History</h2>
-            <div id="versionHistory"></div>
-            <button class="close-version-btn">Close</button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Version History</h2>
+                <button class="close-btn" onclick="closeModal('versionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="versionContent"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Add this to your HTML -->
-<div class="strategy-view">
-    <button id="showStrategyBtn" class="strategy-button">View Complete Strategy Chart</button>
-    
-    <div id="strategyModal" class="modal">
-        <div class="modal-content strategy-modal">
-            <h2>Poker Strategy Chart</h2>
-            <div class="strategy-filters">
-                <select id="viewFilter">
-                    <option value="all">All Actions</option>
-                    <option value="openRaise">Open Raising Ranges</option>
-                    <option value="facing2bet">Facing 2bet Actions</option>
-                    <option value="facing3bet">Facing 3bet Actions</option>
-                    <option value="facing4bet">Facing 4bet Actions</option>
-                    <option value="facingAllin">Facing All-in Actions</option>
-                </select>
-            </div>
-            <div class="strategy-table-container">
-                <table id="strategyTable" class="strategy-table">
-                    <thead>
-                        <tr id="tableHeader">
-                            <!-- Will be dynamically populated -->
-                        </tr>
-                    </thead>
-                    <tbody id="strategyTableBody">
-                        <!-- Will be dynamically populated -->
-                    </tbody>
-                </table>
-            </div>
-        <div class="legend">
-            <h3>Legend:</h3>
-            <div class="legend-section">
-                <h4>Open Raise:</h4>
-                <div class="legend-item raise">Raise (2.5-3BB)</div>
-                <div class="legend-item fold">Fold</div>
-            </div>
-            <div class="legend-section">
-                <h4>Facing 2bet:</h4>
-                <div class="legend-item raise">3bet (Re-raise)</div>
-                <div class="legend-item call">Call</div>
-                <div class="legend-item fold">Fold</div>
-            </div>
-            <div class="legend-section">
-                <h4>Facing 3bet:</h4>
-                <div class="legend-item raise">4bet</div>
-                <div class="legend-item call">Call</div>
-                <div class="legend-item fold">Fold</div>
-            </div>
-            <div class="legend-section">
-                <h4>Facing 4bet:</h4>
-                <div class="legend-item allin">All-in (5bet)</div>
-                <div class="legend-item call">Call</div>
-                <div class="legend-item fold">Fold</div>
-            </div>
-            <div class="legend-section">
-                <h4>Facing All-in:</h4>
-                <div class="legend-item call">Call</div>
-                <div class="legend-item fold">Fold</div>
-            </div>
-        </div>
-        <button class="close-strategy-btn">Close</button>
-        </div>
-    </div>
-</div>
-
-    <script src="data/poker-hands.js"></script>
-    <script src="scripts/app.js"></script>
+    <!-- JavaScript Files -->
+    <script src="js/constants.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,608 @@
+/* Poker Table Styles */
+.poker-table-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    position: relative;
+    min-height: 500px;
+}
+
+.poker-table {
+    width: 90%;
+    max-width: 1000px;
+    aspect-ratio: 1.8;
+    position: relative;
+    margin: 0 auto;
+}
+
+.table-felt {
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at center, 
+            rgba(46, 125, 50, 0.3) 0%, 
+            transparent 70%),
+        radial-gradient(ellipse at center, 
+            #2e7d32 0%, 
+            #1b5e20 50%, 
+            #0d3016 100%);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 
+        /* Inner shadows for depth */
+        inset 0 0 80px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 20px rgba(0, 0, 0, 0.2),
+        /* Outer shadow */
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 10px 20px rgba(0, 0, 0, 0.6);
+    
+    /* Wood-like rail */
+    border: 25px solid;
+    border-color: #3e2723;
+    background-clip: padding-box;
+    position: relative;
+}
+
+/* Add wood texture to rail */
+.table-felt::after {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    right: -25px;
+    bottom: -25px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(90deg, 
+            #3e2723 0%, 
+            #4e342e 20%, 
+            #3e2723 40%, 
+            #5d4037 60%, 
+            #3e2723 80%, 
+            #4e342e 100%);
+    z-index: -1;
+    box-shadow: 
+        inset 0 2px 5px rgba(0, 0, 0, 0.4),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Table felt pattern */
+.table-felt::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Add subtle felt texture */
+.table-felt {
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        ),
+        radial-gradient(ellipse at center, 
+            #2e7d32 0%, 
+            #1b5e20 50%, 
+            #0d3016 100%);
+}
+
+/* Table Center - make it smaller and more elegant */
+.table-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 5;
+    max-width: 200px;
+}
+
+.pot-display {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    margin-bottom: var(--spacing-xs);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pot-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pot-amount {
+    color: #ffd700;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .poker-table {
+        width: 95%;
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 992px) {
+    .poker-table {
+        width: 100%;
+        max-width: 600px;
+        aspect-ratio: 0.8;
+    }
+    
+    .table-felt {
+        border-width: 20px;
+    }
+    
+    .table-felt::after {
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .poker-table-container {
+        padding: var(--spacing-sm);
+        min-height: 500px;
+    }
+    
+    .poker-table {
+        aspect-ratio: 0.7;
+        max-width: 400px;
+    }
+    
+    .table-felt {
+        border-width: 15px;
+    }
+    
+    .table-felt::after {
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+    }
+    
+    .pot-display {
+        padding: 4px 12px;
+    }
+    
+    .pot-label {
+        font-size: 0.7rem;
+    }
+    
+    .pot-amount {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .poker-table {
+        aspect-ratio: 0.6;
+        max-width: 300px;
+    }
+    
+    .table-felt {
+        border-width: 12px;
+    }
+    
+    .table-felt::after {
+        top: -12px;
+        left: -12px;
+        right: -12px;
+        bottom: -12px;
+    }
+}
+
+/* Landscape mode for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .poker-table-container {
+        min-height: auto;
+        padding: 5px;
+    }
+    
+    .poker-table {
+        aspect-ratio: 2;
+        max-height: calc(100vh - 100px);
+    }
+    
+    .table-felt {
+        border-width: 10px;
+    }
+}
+
+/* Seats Positioning - Fixed for elliptical table layout */
+.seat {
+    position: absolute;
+    width: 120px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Seats touching the brown border edge */
+/* Seat 1 - SB at 9:15 */
+.seat-1 { 
+    bottom: -16%; 
+    left: 22%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 2 - BB at 8:09 */
+.seat-2 { 
+    bottom: 8%; 
+    left: 2%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 3 - UTG at 7:03 */
+.seat-3 { 
+    top: 12%; 
+    left: 3%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 4 - UTG+1 at 10:21 */
+.seat-4 { 
+    top: -10%; 
+    left: 24%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 5 - MP1 at 12:33 */
+.seat-5 { 
+    top: -15%; 
+    left: 48%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 6 - MP2 at 1:39 */
+.seat-6 { 
+    top: -10%; 
+    right: 12%; 
+    transform: translateX(-50%); 
+}
+
+/* Seat 7 - MP3 at 2:45 */
+.seat-7 { 
+    top: 15%; 
+    right: 4%; 
+    transform: translateX(50%); 
+}
+
+/* Seat 8 - CO at 3:51 */
+.seat-8 { 
+    bottom: 5%; 
+    right: 0%; 
+    transform: translateX(50%); 
+}
+
+/* Seat 9 - BTN at 5:57 */
+.seat-9 { 
+    bottom: -16%; 
+    right: 23%; 
+    transform: translateX(50%); 
+}
+
+/* Responsive seat positioning */
+@media (max-width: 992px) {
+    .seat {
+        width: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .seat {
+        width: 75px;
+    }
+    
+    .seat-1 { bottom: 35%; left: 2%; }
+    .seat-2 { bottom: 35%; left: 2%; }
+    .seat-3 { bottom: 12%; left: 8%; }
+    .seat-4 { top: 12%; left: 8%; }
+    .seat-5 { top: 2%; left: 50%; }
+    .seat-6 { top: 12%; right: 8%; }
+    .seat-7 { top: 35%; right: 2%; }
+    .seat-8 { bottom: 35%; right: 2%; }
+    .seat-9 { bottom: 12%; right: 8%; }
+}
+
+@media (max-width: 480px) {
+    .seat {
+        width: 65px;
+    }
+    
+    .seat-1 { bottom: 3%; left: 7%; }
+    .seat-2 { bottom: 28%; left: 0%; }
+    .seat-3 { top: 25%; left: 2%; }
+    .seat-4 { top: 4%; left: 14%; }
+    .seat-5 { top: -8%; left: 50%; }
+    .seat-6 { top: 4%; right: 0%; }
+    .seat-7 { top: 25%; right: 1%; }
+    .seat-8 { bottom: 28%; right: 1%; }
+    .seat-9 { bottom: 3%; right: 5%; }
+}
+
+/* Player Info - more responsive colors */
+.player-info {
+    background: linear-gradient(145deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95));
+    border-radius: 12px;
+    padding: var(--spacing-sm);
+    border: 2px solid rgba(149, 165, 166, 0.3);
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.player-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+    border-color: rgba(149, 165, 166, 0.5);
+}
+
+/* More responsive avatar colors */
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 50%, #1abc9c 100%);
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 3px solid rgba(236, 240, 241, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Different colors for different positions */
+.seat[data-position="SB"] .avatar { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+.seat[data-position="BB"] .avatar { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
+.seat[data-position="UTG"] .avatar { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); }
+.seat[data-position="UTG1"] .avatar { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+
+.seat[data-position="MP1"] .avatar { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+.seat[data-position="MP2"] .avatar { background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%); }
+.seat[data-position="MP3"] .avatar { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+.seat[data-position="CO"] .avatar { background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%); }
+.seat[data-position="BTN"] .avatar { background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); }
+
+/* Dealer seat at 6 o'clock with table cutout */
+.dealer-seat {
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: 140px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .dealer-seat {
+        bottom: -10%;
+        width: 120px;
+    }
+    
+    .dealer-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dealer-seat {
+        bottom: -8%;
+        width: 100px;
+    }
+    
+    .dealer-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .dealer-name {
+        font-size: 0.8rem;
+    }
+}
+
+.dealer-cutout {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 40px;
+    background: linear-gradient(180deg, 
+        rgba(46, 125, 50, 0.8) 0%, 
+        rgba(27, 94, 32, 0.9) 50%, 
+        rgba(13, 48, 22, 1) 100%);
+    border-radius: 60px 60px 0 0;
+    border: 3px solid rgba(139, 69, 19, 0.8);
+    border-bottom: none;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dealer-info {
+    background: linear-gradient(145deg, rgba(139, 69, 19, 0.95), rgba(101, 67, 33, 0.95));
+    border-radius: 15px 15px 0 0;
+    padding: 15px 10px 25px;
+    border: 3px solid rgba(160, 82, 45, 0.8);
+    border-bottom: none;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.dealer-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    border: 4px solid #d4af37;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    background: #2c3e50;
+}
+
+.dealer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dealer-name {
+    color: #f4f4f4;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.5px;
+}
+
+/* Seat number styling */
+.seat-number {
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+/* Player name styling */
+.player-name {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+/* Chip count styling */
+.chip-count {
+    font-size: 0.875rem;
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+/* Position Indicator */
+.position-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-warning);
+    border-radius: var(--radius-full);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--bg-primary);
+    border: 2px solid var(--bg-primary);
+}
+
+.seat.active .position-indicator {
+    display: flex;
+}
+
+/* Cards Container */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    height: 70px;
+    align-items: center;
+}
+
+/* Active Seat Styling - Hero */
+.seat.hero-seat .player-info {
+    border-color: #f1c40f;
+    box-shadow: 0 0 30px rgba(241, 196, 15, 0.6);
+    background: linear-gradient(145deg, rgba(241, 196, 15, 0.2), rgba(243, 156, 18, 0.2));
+}
+
+.seat.hero-seat .avatar {
+    border-color: #f1c40f;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%) !important;
+}
+
+/* Sitting Out Style */
+.seat.sitting-out {
+    opacity: 0.5;
+}
+
+.seat.sitting-out .player-info {
+    background-color: rgba(37, 45, 61, 0.5);
+}
+
+/* Chips area in the center */
+.chips-area {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    height: 30px;
+}
+
+/* Responsive adjustments for seat content */
+@media (max-width: 768px) {
+    .player-name {
+        font-size: 0.75rem;
+    }
+    
+    .chip-count {
+        font-size: 0.75rem;
+    }
+    
+    .avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .seat-number {
+        font-size: 1rem;
+    }
+    
+    .cards-container {
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .seat-number {
+        font-size: 0.875rem;
+    }
+    
+    .player-info {
+        padding: 4px;
+    }
+    
+    .cards-container {
+        height: 50px;
+    }
+}

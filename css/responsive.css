@@ -1,0 +1,154 @@
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .poker-table {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 992px) {
+    .poker-table {
+        max-width: 700px;
+    }
+    
+    .seat {
+        width: 100px;
+    }
+    
+    .player-info {
+        padding: var(--spacing-xs);
+    }
+    
+    .avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .card {
+        width: 45px;
+        height: 63px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        font-size: 0.875rem;
+    }
+    
+    .stats-bar {
+        gap: var(--spacing-md);
+    }
+    
+    .stat-item .value {
+        font-size: 1.25rem;
+    }
+    
+    .poker-table {
+        max-width: 100%;
+    }
+    
+    .seat {
+        width: 80px;
+    }
+    
+    .player-name {
+        font-size: 0.75rem;
+    }
+    
+    .chip-count {
+        font-size: 0.75rem;
+    }
+    
+    .action-panel {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    .action-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.875rem;
+        flex: 1 1 45%;
+    }
+    
+    .card {
+        width: 40px;
+        height: 56px;
+    }
+    
+    .seat.hero-seat .card {
+        width: 50px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar {
+        padding: var(--spacing-xs);
+    }
+    
+    .stats-bar {
+        padding: var(--spacing-xs);
+        gap: var(--spacing-sm);
+    }
+    
+    .stat-item .label {
+        font-size: 0.625rem;
+    }
+    
+    .stat-item .value {
+        font-size: 1rem;
+    }
+    
+    .seat {
+        width: 70px;
+    }
+    
+    .avatar {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .seat-number {
+        font-size: 1rem;
+    }
+    
+    .action-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.75rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: var(--spacing-sm);
+    }
+    
+    .bottom-controls {
+        bottom: var(--spacing-xs);
+        left: var(--spacing-xs);
+    }
+    
+    .control-btn {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* Landscape Mode for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .top-bar, .stats-bar {
+        display: none;
+    }
+    
+    .poker-table-container {
+        padding: var(--spacing-xs);
+    }
+    
+    .action-panel {
+        bottom: 5px;
+    }
+    
+    .action-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.75rem;
+    }
+}
