@@ -1,19 +1,4 @@
-/* Action Panel - Below table and dealer */
-.action-panel {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 40;
-    background: linear-gradient(145deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95));
-    padding: 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(149, 165, 166, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
+
 
 @media (max-width: 768px) {
     .action-panel {
@@ -211,9 +196,11 @@
     cursor: pointer;
     color: rgba(255, 255, 255, 0.6);
     transition: all 0.2s ease;
-    padding: 2px;
+    padding: 4px 8px;
     font-size: 8px;
     line-height: 1;
+    position: relative;
+    z-index: 101;
 }
 
 .action-toggle:hover {
@@ -233,7 +220,7 @@
 
 .action-buttons {
     position: absolute;
-    top: 15px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(44, 62, 80, 0.95);
@@ -248,12 +235,14 @@
     overflow: hidden;
     opacity: 0;
     white-space: nowrap;
+    pointer-events: none;
 }
 
 .action-buttons .action-btn {
     font-size: 12px;
     padding: 6px 10px;
     min-width: 50px;
+    pointer-events: auto;
 }
 
 /* Desktop: Show on hover */
@@ -261,6 +250,7 @@
     .action-panel:hover .action-buttons {
         max-height: 60px;
         opacity: 1;
+        pointer-events: auto;
     }
 }
 
@@ -269,6 +259,7 @@
     .action-panel.expanded .action-buttons {
         max-height: 60px;
         opacity: 1;
+        pointer-events: auto;
     }
     
     .action-panel.expanded .toggle-arrow {
@@ -283,5 +274,10 @@
     
     .action-panel.expanded .action-buttons {
         max-height: 120px;
+    }
+    
+    .action-toggle {
+        padding: 6px 12px;
+        font-size: 10px;
     }
 }

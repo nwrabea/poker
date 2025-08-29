@@ -183,21 +183,21 @@
                             </div>
                             <!-- Action Buttons -->
                             <div class="action-panel" id="actionPanel">
-                                <div class="action-toggle" onclick="toggleActionPanel()">
+                                <div class="action-toggle" onclick="toggleActionPanel(event)">
                                     <span class="toggle-text">Actions</span>
                                     <span class="toggle-arrow">▲</span>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="action-btn fold-btn" onclick="event.stopPropagation(); makeDecision('fold')">
+                                    <button class="action-btn fold-btn" onclick="makeDecision('fold')">
                                         Fold
                                     </button>
-                                    <button class="action-btn call-btn" onclick="event.stopPropagation(); makeDecision('call')">
+                                    <button class="action-btn call-btn" onclick="makeDecision('call')">
                                         Call
                                     </button>
-                                    <button class="action-btn raise-btn" onclick="event.stopPropagation(); makeDecision('raise')">
+                                    <button class="action-btn raise-btn" onclick="makeDecision('raise')">
                                         Raise
                                     </button>
-                                    <button class="action-btn allin-btn" onclick="event.stopPropagation(); makeDecision('allin')">
+                                    <button class="action-btn allin-btn" onclick="makeDecision('allin')">
                                         All In
                                     </button>
                                 </div>

@@ -215,8 +215,10 @@ function closeModal(modalId) {
 
 // Action panel toggle for mobile
 function toggleActionPanel(event) {
-    event.preventDefault();
-    event.stopPropagation();
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
     const panel = document.getElementById('actionPanel');
     panel.classList.toggle('expanded');
 }
